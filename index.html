@@ -3,117 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore</title>
+    <title>TechStore | Informática e Eletrônicos</title>
+    <style>
+        /* RESET E CONFIGURAÇÕES GERAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* CABEÇALHO E NAVEGAÇÃO */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+        }
+
+        nav a {
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00d2ff;
+        }
+
+        /* HERO BANNER */
+        .hero {
+            background: url('https://unsplash.com') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .btn-cta {
+            background-color: #00d2ff;
+            color: #1e3c72;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: transform 0.2s, background-color 0.3s;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            background-color: #fff;
+        }
+
+        /* CORPO PRINCIPAL */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #1e3c72;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #00d2ff;
+            border-radius: 2px;
+        }
+
+        /* GRID DE PRODUTOS EXPANDIDO */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Mudado para 2 colunas para ampliar as imagens */
+            gap: 40px; /* Mais espaço entre os cards */
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 360px; /* Aumentado de 220px para 360px */
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            font-size: 22px; /* Nome do produto ligeiramente maior */
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .product-info p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 26px; /* Preço maior para acompanhar o visual */
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .btn-buy {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-buy:hover {
+            background-color: #00d2ff;
+            color: #1e3c72;
+        }
+
+        /* SEÇÃO SOBRE */
+        .about-text {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #111;
+            color: #aaa;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-info {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-info span {
+            color: #fff;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 900px) {
+            .products-grid {
+                grid-template-columns: 1fr; /* Em telas menores ou celulares, vira 1 coluna */
+            }
+            .product-image {
+                height: 280px; /* Ajuste de altura para telas menores */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .hero-content h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- CABEÇALHO / BANNER                                            -->
-    <!-- ============================================================ -->
-    <table border="1" width="100%" cellpadding="12">
-        <tr>
-            <td align="center">
-                <!-- Para exibir o banner, crie uma imagem chamada 'banner.jpg' na mesma pasta -->
-                <img src="banner.jpg" alt="Banner da TechStore" width="100%" max-height="250">
+    <!-- CABEÇALHO / NAVEGAÇÃO -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
                 <h1>TechStore</h1>
                 <p>Informática e Eletrônicos</p>
-            </td>
-        </tr>
-    </table>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- HERO BANNER -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Tecnologia de Ponta para Você</h2>
+            <p>Os melhores setups, componentes e periféricos com as melhores condições.</p>
+            <a href="#produtos" class="btn-cta">Ver Ofertas</a>
+        </div>
+    </section>
 
-    <!-- ============================================================ -->
-    <!-- MENU DE NAVEGAÇÃO                                             -->
-    <!-- ============================================================ -->
-    <table border="1" width="100%" cellpadding="8">
-        <tr>
-            <td align="center">
-                <a href="#">Início</a> |
-                <a href="#produtos">Produtos</a> |
-                <a href="#sobre">Sobre</a> |
-                <a href="#contato">Contato</a>
-            </td>
-        </tr>
-    </table>
+    <!-- CORPO PRINCIPAL -->
+    <main>
 
+        <!-- SEÇÃO PRODUTOS -->
+        <section id="produtos">
+            <h2>Nossos Produtos</h2>
+            
+            <div class="products-grid">
+                
+                <!-- Produto 1 -->
+                <div class="product-card">
+                    <img src="https://unsplash.com" alt="Notebook Gamer" class="product-image">
+                    <div class="product-info">
+                        <h3>Notebook Gamer ROG Strix G16</h3>
+                        <p>Intel Core i9 de 13ª geração, NVIDIA RTX 4060, 16GB RAM DDR5 e SSD de 512GB NVMe. Tela de 16" 165Hz perfeita para jogos competitivos e renderizações pesadas.</p>
+                        <div class="product-price">R$ 5.299,00</div>
+                        <a href="#" class="btn-buy">Comprar Agora</a>
+                    </div>
+                </div>
 
-    <!-- ============================================================ -->
-    <!-- PRODUTOS                                                      -->
-    <!-- ============================================================ -->
-    <h2 id="produtos">Nossos Produtos</h2>
+                <!-- Produto 2 -->
+                <div class="product-card">
+                    <img src="https://unsplash.com" alt="Monitor 24" class="product-image">
+                    <div class="product-info">
+                        <h3>Monitor 24" IPS 144Hz</h3>
+                        <p>Painel IPS com fidelidade de cores impressionante, 1ms de tempo de resposta e tecnologia AMD FreeSync Premium para uma gameplay fluida e sem cortes.</p>
+                        <div class="product-price">R$ 1.149,00</div>
+                        <a href="#" class="btn-buy">Comprar Agora</a>
+                    </div>
+                </div>
 
-    <table border="1" width="100%" cellpadding="12">
-
-        <!-- LINHA 1 -->
-        <tr>
-            <td align="center" width="33%">
-                <img src="NotebookGamer.png" alt="Notebook Gamer" width="150"><br>
-                <h3>Notebook Gamer</h3>
-                <p>Notebook Gamer ROG Strix G16, Intel Core i9, NVIDIA RTX™ 5060, 16GB, 512GB SSD, Windows 11 Home, 16" LED, Eclipse Gray.</p>
-                <p><strong>R$ 5.299,00</strong></p>
-            </td>
-
-            <td align="center" width="33%">
-                <img src="Monitor.png" alt="Monitor 24" width="150"><br>
-                <h3>Monitor 24"</h3>
-                <p>Monitor IPS Full HD com taxa de atualização de 144Hz, tempo de resposta de 1ms e tecnologia AMD FreeSync. Ideal para jogos e produtividade.</p>
-                <p><strong>R$ 899,00</strong></p>
-            </td>
-
-            <td align="center" width="33%">
-                <img src="Teclado.png" alt="Teclado Mecânico" width="150"><br>
-                <h3>Teclado Mecânico</h3>
-                <p>Teclado mecânico RGB com switches do tipo Blue, layout ABNT2, teclas anti-ghosting e cabo trançado removível para maior durabilidade.</p>
-                <p><strong>R$ 249,90</strong></p>
-            </td>
-        </tr>
-
-        <!-- LINHA 2 -->
-        <tr>
-            <td align="center" width="33%">
-                <img src="Mouse.png" alt="Mouse sem fio" width="150"><br>
-                <h3>Mouse sem fio</h3>
-                <p>Mouse gamer sem fio ergonômico, sensor óptico de alta precisão com até 10.000 DPI e bateria recarregável de longa duração.</p>
-                <p><strong>R$ 179,00</strong></p>
-            </td>
-
-            <td align="center" width="33%">
-                <img src="SSD.png" alt="SSD 1TB" width="150"><br>
-                <h3>SSD 1TB</h3>
-                <p>SSD NVMe M.2 PCIe 4.0 de alta velocidade. Leituras de até 3500MB/s para carregar o sistema operacional e jogos em poucos segundos.</p>
-                <p><strong>R$ 389,00</strong></p>
-            </td>
-
-            <td align="center" width="33%">
-                <img src="Headset.png" alt="Headset Gamer" width="150"><br>
-                <h3>Headset Gamer</h3>
-                <p>Headset com som surround 7.1 virtual, almofadas de espuma confortáveis, isolamento acústico e microfone maleável antirruído.</p>
-                <p><strong>R$ 299,00</strong></p>
-            </td>
-        </tr>
-
-    </table>
-
-
-    <!-- ============================================================ -->
-    <!-- SOBRE                                                         -->
-    <!-- ============================================================ -->
-    <h2 id="sobre">Sobre a loja</h2>
-    <p>A TechStore é a sua parceira ideal em tecnologia. Nascida com o objetivo de trazer os melhores componentes de hardware, periféricos gamers e eletrônicos de última geração, nós focamos na qualidade de atendimento e na entrega rápida para todo o Brasil. Equipamos o seu setup com o que há de melhor no mercado!</p>
-
-
-    <!-- ============================================================ -->
-    <!-- RODAPÉ                                                       -->
-    <!-- ============================================================ -->
-    <h2 id="contato">Contato</h2>
-    <table border="1" width="100%" cellpadding="12">
-        <tr>
-            <td align="center">
-                <p>&copy; 2026 TechStore — Todos os direitos reservados.</p>
-                <p>Av. das Tecnologias, 1000 - Curitiba/PR &nbsp; | &nbsp; Telefone: (41) 99999-0000 &nbsp; | &nbsp; E-mail: contato@techstore.com</p>
-            </td>
-        </tr>
-    </table>
-
-</body>
-</html>
+                <!-- Produto 3 -->
+                <div class="product-card">
+                    <img src="https://unsplash.com" alt="Teclado Mecânico RGB" class="product-image">
+                    <div class="product-info">
+                        <h3>Teclado Mecânico RGB Switch Blue</h3>
